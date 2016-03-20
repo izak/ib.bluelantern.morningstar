@@ -1,6 +1,6 @@
+import sys
 import logging
 from time import time, sleep
-from random import randint
 from threading import Thread
 import paho.mqtt.client as mqtt
 from pymodbus.client.sync import ModbusSerialClient as ModbusClient
