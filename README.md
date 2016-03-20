@@ -1,4 +1,4 @@
-# Morningstar plugin vir BlueLantern
+# Morningstar plugin for BlueLantern
 
 This is a pyramid extension. It starts up a thread that periodically queries
 the MorningStar TriStar MPPT for voltage and current values. It publishes
