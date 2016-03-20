@@ -7,8 +7,8 @@ from pymodbus.client.sync import ModbusSerialClient as ModbusClient
 
 logger = logging.getLogger(__name__)
 
-def main(host, port, mqtt_username, mqtt_password, instance, name):
-    modbus = ModbusClient(method='rtu', port=port, baudrate=9600, timeout=1)
+def main(host, port, mqtt_username, mqtt_password, instance, name, serial_port):
+    modbus = ModbusClient(method='rtu', port=serial_port, baudrate=9600, timeout=1)
 
     if not modbus.connect():
         logger.error("Cannot connect to modbus")
@@ -45,12 +45,15 @@ def main(host, port, mqtt_username, mqtt_password, instance, name):
 def includeme(config):
     mqtt_host = config.registry.settings.get('mqtt.host')
     mqtt_port = int(config.registry.settings.get('mqtt.port', 1883))
+    mqtt_username = config.registry.settings.get('mqtt.username')
+    mqtt_password = config.registry.settings.get('mqtt.password')
+
     instance = config.registry.settings.get('morningstar.instance', 'battery01')
     name = config.registry.settings.get('morningstar.name', 'mppt')
 
     serial_port = config.registry.settings.get('morningstar.port')
 
-    target = lambda: main(mqtt_host, mqtt_port, instance, name)
+    target = lambda: main(mqtt_host, mqtt_port, mqtt_username, mqtt_password, instance, name, serial_port)
     thread = Thread(target = target)
     thread.daemon = True
     thread.start()
