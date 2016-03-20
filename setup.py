@@ -23,5 +23,6 @@ setup(
     install_requires=[
         'setuptools',
         'paho-mqtt',
+        'pymodbus'
     ]
     )
