@@ -29,8 +29,8 @@ def main(host, port, instance, name):
 def includeme(config):
     mqtt_host = config.registry.settings.get('mqtt.host')
     mqtt_port = int(config.registry.settings.get('mqtt.port', 1883))
-    instance = config.registry.settings.get('blexample.instance', 'battery01')
-    name = config.registry.settings.get('blexample.name', 'mppt')
+    instance = config.registry.settings.get('morningstar.instance', 'battery01')
+    name = config.registry.settings.get('morningstar.name', 'mppt')
 
     target = lambda: main(mqtt_host, mqtt_port, instance, name)
     thread = Thread(target = target)
