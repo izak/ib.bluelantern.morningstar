@@ -27,7 +27,7 @@ def main(host, port, mqtt_username, mqtt_password, instance, name, serial_port):
             r = modbus.read_holding_registers(0, 16, unit=1)
 
             bat_volt = r.registers[8] * 96.667 * 2**(-15)
-            bat_curr = r.registers[12] * 316.67 * 2**(-15)
+            bat_curr = r.registers[11] * 316.67 * 2**(-15)
             bat_temp = r.registers[15]
 
             client.publish('{}/{}/power'.format(instance, name), "{} {:0.2f}".format(now, bat_volt * bat_curr), 0)
